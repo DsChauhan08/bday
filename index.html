@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday ✨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .script-font {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        /* Floating hearts animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .heart {
+            position: fixed;
+            bottom: -50px;
+            animation: float linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Glow effect */
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(216, 180, 254, 0.5), 0 0 30px rgba(216, 180, 254, 0.3); }
+            50% { text-shadow: 0 0 30px rgba(216, 180, 254, 0.8), 0 0 40px rgba(216, 180, 254, 0.5); }
+        }
+        
+        .glow-text {
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        /* Fade in animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        /* Blur unlock effect */
+        .locked {
+            filter: blur(10px);
+            pointer-events: none;
+        }
+        
+        /* Confetti */
+        @keyframes confetti-fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+        
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #d8b4fe;
+            animation: confetti-fall 3s linear infinite;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        /* Secret reveal */
+        .secret-locked {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s ease;
+        }
+        
+        .secret-unlocked {
+            max-height: 500px;
+        }
+        
+        /* Parallax background blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-purple-50 via-pink-50 to-purple-100 min-h-screen">
+    
+    <!-- Floating hearts container -->
+    <div id="hearts-container"></div>
+    
+    <!-- Background decorative blobs -->
+    <div class="blob w-96 h-96 bg-purple-300 top-10 -left-48"></div>
+    <div class="blob w-80 h-80 bg-pink-300 top-96 right-0"></div>
+    <div class="blob w-72 h-72 bg-purple-200 bottom-20 left-1/4"></div>
+    
+    <!-- Countdown Screen (shows before midnight) -->
+    <div id="countdown-screen" class="fixed inset-0 bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 z-50 flex items-center justify-center">
+        <div class="text-center px-6">
+            <div class="text-6xl mb-6">🌙✨</div>
+            <h1 class="text-4xl md:text-6xl text-white script-font mb-4 glow-text">
+                Stay with me till midnight?
+            </h1>
+            <p class="text-purple-200 text-lg mb-8">
+                Something special unlocks at 12:01 AM, December 9th
+            </p>
+            <div id="countdown" class="text-5xl md:text-7xl font-bold text-white mb-4">
+                00:00:00
+            </div>
+            <p class="text-purple-300 text-sm">
+                (or add ?preview=1 to the URL to peek early)
+            </p>
+        </div>
+    </div>
+    
+    <!-- Main Content (unlocked at midnight) -->
+    <div id="main-content" class="locked">
+        
+        <!-- Hero Section -->
+        <section class="min-h-screen flex items-center justify-center relative px-6 py-20">
+            <div class="text-center max-w-3xl mx-auto z-10 fade-in">
+                <div class="text-7xl mb-6">🎂✨💜</div>
+                <h1 class="text-5xl md:text-7xl font-bold text-purple-900 script-font mb-6 glow-text">
+                    Happy Birthday [HER NAME]
+                </h1>
+                <p class="text-xl md:text-2xl text-purple-700 leading-relaxed">
+                    <!-- PLACEHOLDER: Write 2-3 sentences about what makes her special -->
+                    [Write something like: "Today marks another year of you being the most incredible person I know. 
+                    You bring light to every moment, and I'm so grateful our paths cross every single day."]
+                </p>
+            </div>
+        </section>
+        
+        <!-- Favorite Moments Section -->
+        <section class="py-20 px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 border border-purple-200">
+                    <h2 class="text-4xl font-bold text-purple-800 mb-8 text-center script-font">
+                        My Favorite Moments
+                    </h2>
+                    <div class="space-y-6 text-lg text-gray-700">
+                        <div class="flex items-start space-x-4">
+                            <span class="text-3xl">🚶‍♀️</span>
+                            <p>
+                                <!-- PLACEHOLDER: Walking home moment -->
+                                <strong>Our walks home —</strong> [e.g., "Walking back with you is the best part of my day. 
+                                Those conversations make even the longest days feel short."]
+                            </p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <span class="text-3xl">😊</span>
+                            <p>
+                                <!-- PLACEHOLDER: Her laugh or smile -->
+                                <strong>Your smile —</strong> [e.g., "The way you light up when you talk about things you love. 
+                                It's contagious and makes everything feel brighter."]
+                            </p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <span class="text-3xl">💭</span>
+                            <p>
+                                <!-- PLACEHOLDER: Deep conversations -->
+                                <strong>Our talks —</strong> [e.g., "How we can talk about anything and everything, 
+                                and time just disappears. You make every conversation feel meaningful."]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Things I Admire Section -->
+        <section class="py-20 px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl shadow-2xl p-8 md:p-12 border border-purple-300">
+                    <h2 class="text-4xl font-bold text-purple-800 mb-8 text-center script-font">
+                        Things I Admire About You
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-6 text-gray-700">
+                        <div class="bg-white/50 rounded-2xl p-6">
+                            <div class="text-4xl mb-3">🌟</div>
+                            <h3 class="font-semibold text-xl text-purple-700 mb-2">Your kindness</h3>
+                            <p>
+                                <!-- PLACEHOLDER: Her kindness -->
+                                [e.g., "You care about everyone around you in such a genuine way."]
+                            </p>
+                        </div>
+                        <div class="bg-white/50 rounded-2xl p-6">
+                            <div class="text-4xl mb-3">💫</div>
+                            <h3 class="font-semibold text-xl text-purple-700 mb-2">Your passion</h3>
+                            <p>
+                                <!-- PLACEHOLDER: Something she's passionate about -->
+                                [e.g., "The way you dedicate yourself to [her hobby/interest] inspires me."]
+                            </p>
+                        </div>
+                        <div class="bg-white/50 rounded-2xl p-6">
+                            <div class="text-4xl mb-3">🎨</div>
+                            <h3 class="font-semibold text-xl text-purple-700 mb-2">Your creativity</h3>
+                            <p>
+                                <!-- PLACEHOLDER: Her creative side -->
+                                [e.g., "You see the world differently, and it makes everything more interesting."]
+                            </p>
+                        </div>
+                        <div class="bg-white/50 rounded-2xl p-6">
+                            <div class="text-4xl mb-3">✨</div>
+                            <h3 class="font-semibold text-xl text-purple-700 mb-2">Your energy</h3>
+                            <p>
+                                <!-- PLACEHOLDER: Her personality -->
+                                [e.g., "You bring life to every room you enter. Being around you feels natural."]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Wishes Section -->
+        <section class="py-20 px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 border border-purple-200">
+                    <h2 class="text-4xl font-bold text-purple-800 mb-8 text-center script-font">
+                        Wishes For Your Year
+                    </h2>
+                    <div class="space-y-4 text-lg text-gray-700">
+                        <p class="flex items-start space-x-3">
+                            <span class="text-2xl">🌸</span>
+                            <span>
+                                <!-- PLACEHOLDER: Wish 1 -->
+                                [e.g., "May this year bring you all the happiness you deserve and more."]
+                            </span>
+                        </p>
+                        <p class="flex items-start space-x-3">
+                            <span class="text-2xl">🎯</span>
+                            <span>
+                                <!-- PLACEHOLDER: Wish 2 -->
+                                [e.g., "May you achieve every goal you set your mind to — I know you will."]
+                            </span>
+                        </p>
+                        <p class="flex items-start space-x-3">
+                            <span class="text-2xl">💜</span>
+                            <span>
+                                <!-- PLACEHOLDER: Wish 3 -->
+                                [e.g., "May you always be surrounded by people who appreciate how special you are."]
+                            </span>
+                        </p>
+                        <p class="flex items-start space-x-3">
+                            <span class="text-2xl">🌈</span>
+                            <span>
+                                <!-- PLACEHOLDER: Wish 4 -->
+                                [e.g., "May every day surprise you with small moments of joy."]
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Secret Message Section -->
+        <section class="py-20 px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <button id="secret-btn" class="group mb-8 transform hover:scale-105 transition-all duration-300">
+                    <div class="text-6xl mb-2 group-hover:animate-bounce">💌</div>
+                    <p class="text-purple-600 font-semibold">There's something here just for you...</p>
+                    <p class="text-purple-400 text-sm">Click to reveal</p>
+                </button>
+                
+                <div id="secret-message" class="secret-locked">
+                    <div class="bg-gradient-to-br from-purple-200 to-pink-200 rounded-3xl shadow-2xl p-8 md:p-12 border-2 border-purple-400">
+                        <h3 class="text-3xl font-bold text-purple-900 mb-6 script-font">
+                            Just Between Us
+                        </h3>
+                        <p class="text-lg text-gray-800 leading-relaxed">
+                            <!-- PLACEHOLDER: Your subtle but clear message -->
+                            [e.g., "I look forward to seeing you more than anything else. 
+                            You're not just my friend — you're the person I think about when I wake up and the last thought before I sleep. 
+                            I hope this year brings us even closer, because honestly, 
+                            I can't imagine my days without you in them. Here's to more walks, more talks, and more memories together."]
+                        </p>
+                        <div class="mt-6 text-5xl">💜✨</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="py-12 px-6 text-center">
+            <p class="text-purple-600 mb-2">Made with 💜 just for you</p>
+            <p class="text-purple-400 text-sm">— by someone who cares more than you might know</p>
+        </footer>
+        
+    </div>
+    
+    <script>
+        // Configuration
+        const UNLOCK_DATE = new Date('2025-12-09T00:01:00');
+        const urlParams = new URLSearchParams(window.location.search);
+        const isPreview = urlParams.get('preview') === '1';
+        
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const diff = UNLOCK_DATE - now;
+            
+            if (diff <= 0 || isPreview) {
+                unlockContent();
+                return;
+            }
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('countdown').textContent = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+        
+        function unlockContent() {
+            document.getElementById('countdown-screen').style.display = 'none';
+            document.getElementById('main-content').classList.remove('locked');
+            createConfetti();
+            startFloatingHearts();
+        }
+        
+        // Confetti Effect
+        function createConfetti() {
+            const colors = ['#d8b4fe', '#f0abfc', '#c084fc', '#e9d5ff', '#fae8ff'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 50);
+            }
+        }
+        
+        // Floating Hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '💜';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            heart.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            document.getElementById('hearts-container').appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 15000);
+        }
+        
+        function startFloatingHearts() {
+            setInterval(createHeart, 2000);
+        }
+        
+        // Secret Message Reveal
+        document.getElementById('secret-btn').addEventListener('click', function() {
+            const secretMsg = document.getElementById('secret-message');
+            secretMsg.classList.toggle('secret-unlocked');
+            this.style.display = secretMsg.classList.contains('secret-unlocked') ? 'none' : 'block';
+        });
+        
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+        
+        // Initialize
+        if (!isPreview) {
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+        } else {
+            unlockContent();
+        }
+        
+        // Reduce motion for accessibility
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('.heart, .confetti').forEach(el => {
+                el.style.animation = 'none';
+            });
+        }
+    </script>
+    
+</body>
+</html>
+
