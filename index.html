@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday ✨</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Inter:wght@300;400;600&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
+
         .script-font {
             font-family: 'Dancing Script', cursive;
         }
-        
+
         /* Three.js canvas background */
         #particles-canvas {
             position: fixed;
@@ -26,13 +30,20 @@
             z-index: 0;
             pointer-events: none;
         }
-        
+
         /* Shooting stars */
         @keyframes shootingStar {
-            0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 1; }
-            100% { transform: translateX(-200px) translateY(200px) rotate(-45deg); opacity: 0; }
+            0% {
+                transform: translateX(0) translateY(0) rotate(-45deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(-200px) translateY(200px) rotate(-45deg);
+                opacity: 0;
+            }
         }
-        
+
         .shooting-star {
             position: fixed;
             width: 2px;
@@ -42,7 +53,7 @@
             z-index: 1;
             animation: shootingStar 1.5s ease-out forwards;
         }
-        
+
         .shooting-star::after {
             content: '';
             position: absolute;
@@ -52,25 +63,45 @@
             height: 2px;
             background: linear-gradient(to left, transparent, white);
         }
-        
+
         /* Birthday cake bounce */
         @keyframes cakeBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
-        
+
         .cake-bounce {
             animation: cakeBounce 2s ease-in-out infinite;
         }
-        
+
         /* Floating hearts and balloons */
         @keyframes float-up {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            50% { transform: translateY(-50vh) translateX(20px) rotate(180deg); }
-            100% { transform: translateY(-100vh) translateX(-20px) rotate(360deg); opacity: 0; }
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-50vh) translateX(20px) rotate(180deg);
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(-20px) rotate(360deg);
+                opacity: 0;
+            }
         }
-        
+
         .floating-element {
             position: fixed;
             bottom: -80px;
@@ -79,13 +110,35 @@
             z-index: 1;
             font-size: 3rem;
         }
-        
-        /* Rose petals falling */
+
+        /* Rose petals falling with swaying */
         @keyframes petalFall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0.3; }
+            0% {
+                transform: translateY(-100px) rotate(0deg) translateX(0);
+                opacity: 1;
+            }
+
+            25% {
+                transform: translateY(25vh) rotate(90deg) translateX(30px);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: translateY(50vh) rotate(180deg) translateX(-20px);
+                opacity: 0.7;
+            }
+
+            75% {
+                transform: translateY(75vh) rotate(270deg) translateX(25px);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg) translateX(0);
+                opacity: 0.3;
+            }
         }
-        
+
         .rose-petal {
             position: fixed;
             top: -50px;
@@ -93,60 +146,297 @@
             pointer-events: none;
             z-index: 1;
             font-size: 2rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
-        
+
+        /* Flower burst animation for letter opening */
+        @keyframes flowerBurst {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.2) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(0) rotate(360deg) translateY(-100px);
+                opacity: 0;
+            }
+        }
+
+        .flower-burst {
+            position: fixed;
+            animation: flowerBurst 2s ease-out forwards;
+            pointer-events: none;
+            z-index: 200;
+            font-size: 3rem;
+        }
+
+        /* Blooming flower animation */
+        @keyframes bloom {
+            0% {
+                transform: scale(0) rotate(-45deg);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.1) rotate(10deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bloomPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+                filter: brightness(1.1);
+            }
+        }
+
+        .blooming-flower {
+            animation: bloom 1.5s ease-out forwards;
+        }
+
+        .bloom-pulse {
+            animation: bloomPulse 3s ease-in-out infinite;
+        }
+
+        /* Typewriter effect */
+        @keyframes typewriter {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: #be185d;
+            }
+        }
+
+        .typewriter-text {
+            overflow: hidden;
+            white-space: normal;
+            animation: typewriter 3s steps(60, end);
+        }
+
+        /* Floral border decoration - subtle and elegant */
+        .floral-border {
+            position: relative;
+        }
+
+        .floral-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.4), transparent);
+            border-radius: 2px;
+        }
+
+        .floral-border::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.4), transparent);
+            border-radius: 2px;
+        }
+
+        /* Corner flower decorations - subtle single flower */
+        .corner-flowers::before {
+            content: '🌸';
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.4;
+            pointer-events: none;
+            top: 15px;
+            right: 15px;
+            animation: bloomPulse 6s ease-in-out infinite;
+        }
+
+        /* Remove the after pseudo-element for cleaner look */
+        .corner-flowers::after {
+            display: none;
+        }
+
+        /* Vine decorations - very subtle */
+        .vine-left,
+        .vine-right {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.15;
+            font-size: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .vine-left {
+            left: 0;
+        }
+
+        .vine-right {
+            right: 0;
+        }
+
+        @media (max-width: 768px) {
+
+            .vine-left,
+            .vine-right {
+                display: none;
+            }
+        }
+
+        /* Enhanced romantic gradients */
+        .romantic-gradient {
+            background: linear-gradient(135deg,
+                    rgba(253, 242, 248, 0.9) 0%,
+                    rgba(252, 231, 243, 0.9) 25%,
+                    rgba(245, 208, 254, 0.9) 50%,
+                    rgba(252, 231, 243, 0.9) 75%,
+                    rgba(253, 242, 248, 0.9) 100%);
+        }
+
+        /* Letter spotlight effect */
+        .letter-spotlight {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+        }
+
+        .letter-spotlight.active {
+            opacity: 1;
+        }
+
         /* Counter animation */
         @keyframes countUp {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
-        
+
         .count-animation {
             animation: countUp 0.5s ease-out forwards;
         }
-        
+
         /* Sparkle animation */
         @keyframes sparkle {
-            0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
-            50% { transform: scale(1) rotate(180deg); opacity: 1; }
+
+            0%,
+            100% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1) rotate(180deg);
+                opacity: 1;
+            }
         }
-        
+
         .sparkle {
             animation: sparkle 2s ease-in-out infinite;
         }
-        
+
         /* Glow effect */
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 15px rgba(216, 180, 254, 0.5), 0 0 25px rgba(236, 72, 153, 0.3); }
-            50% { text-shadow: 0 0 25px rgba(216, 180, 254, 0.8), 0 0 35px rgba(236, 72, 153, 0.5); }
+
+            0%,
+            100% {
+                text-shadow: 0 0 15px rgba(216, 180, 254, 0.5), 0 0 25px rgba(236, 72, 153, 0.3);
+            }
+
+            50% {
+                text-shadow: 0 0 25px rgba(216, 180, 254, 0.8), 0 0 35px rgba(236, 72, 153, 0.5);
+            }
         }
-        
+
         .glow-text {
             animation: glow 3s ease-in-out infinite;
         }
-        
+
         /* Fade in animations */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .fade-in {
             animation: fadeInUp 1s ease-out forwards;
         }
-        
+
         /* Blur unlock effect */
         .locked {
             filter: blur(10px);
             pointer-events: none;
         }
-        
+
         /* Confetti burst */
         @keyframes confetti-burst {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
         }
-        
+
         .confetti {
             position: fixed;
             width: 12px;
@@ -155,7 +445,7 @@
             pointer-events: none;
             z-index: 100;
         }
-        
+
         /* Mobile-friendly parallax */
         .parallax-layer {
             transition: transform 0.1s ease-out;
@@ -163,7 +453,7 @@
             position: relative;
             z-index: 2;
         }
-        
+
         /* Decorative blobs */
         .blob {
             position: absolute;
@@ -172,7 +462,7 @@
             opacity: 0.25;
             pointer-events: none;
         }
-        
+
         /* Start overlay */
         .start-overlay {
             backdrop-filter: blur(20px);
@@ -180,39 +470,58 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .start-overlay:hover {
             background: linear-gradient(135deg, rgba(139, 92, 246, 1), rgba(236, 72, 153, 1));
         }
-        
+
         /* Pulse animation */
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
         }
-        
+
         .pulse {
             animation: pulse 2s ease-in-out infinite;
         }
-        
+
         /* Heart beat animation */
         @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            10%, 30% { transform: scale(1.1); }
-            20%, 40% { transform: scale(1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            10%,
+            30% {
+                transform: scale(1.1);
+            }
+
+            20%,
+            40% {
+                transform: scale(1);
+            }
         }
-        
+
         .heartbeat {
             animation: heartbeat 1.5s ease-in-out infinite;
         }
-        
+
         /* Better text wrapping */
         .better-text {
             line-height: 1.8;
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
-        
+
         /* Beautiful soft hero text styling */
         .hero-text {
             font-family: 'Poppins', sans-serif;
@@ -224,11 +533,11 @@
             text-align: center;
             max-width: 100%;
         }
-        
+
         .hero-text p {
             margin-bottom: 1.5rem;
         }
-        
+
         .hero-text .highlight {
             font-weight: 500;
             color: #be185d;
@@ -237,24 +546,33 @@
             border-radius: 0.5rem;
             display: inline-block;
         }
-        
+
         @media (min-width: 768px) {
             .hero-text {
                 font-size: 1.25rem;
             }
         }
-        
+
         /* Love letter seal */
         @keyframes sealBreak {
-            0% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.2) rotate(10deg); }
-            100% { transform: scale(0) rotate(45deg); opacity: 0; }
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.2) rotate(10deg);
+            }
+
+            100% {
+                transform: scale(0) rotate(45deg);
+                opacity: 0;
+            }
         }
-        
+
         .seal-break {
             animation: sealBreak 0.5s ease-out forwards;
         }
-        
+
         /* Timeline line */
         .timeline-line {
             position: absolute;
@@ -264,82 +582,460 @@
             width: 2px;
             background: linear-gradient(to bottom, #c084fc, #ec4899);
         }
-        
+
         @media (max-width: 768px) {
             .timeline-line {
                 left: 24px;
             }
         }
-        
+
         /* Reason card flip */
         @keyframes cardFlip {
-            0% { transform: rotateY(0deg); }
-            50% { transform: rotateY(90deg); }
-            100% { transform: rotateY(0deg); }
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            50% {
+                transform: rotateY(90deg);
+            }
+
+            100% {
+                transform: rotateY(0deg);
+            }
         }
-        
+
         .flip-card {
             animation: cardFlip 0.6s ease-in-out;
         }
-        
+
         /* Mobile optimizations */
         @media (max-width: 640px) {
             .floating-element {
                 font-size: 2rem;
             }
-            
+
             h1 {
                 font-size: 3rem !important;
             }
-            
+
             h2 {
                 font-size: 2rem !important;
             }
         }
     </style>
 </head>
+
 <body class="bg-gradient-to-b from-purple-50 via-pink-50 to-purple-100 min-h-screen">
-    
+
     <!-- Three.js Particle Canvas -->
     <canvas id="particles-canvas"></canvas>
-    
+
     <!-- Rose petals container -->
     <div id="petals-container"></div>
-    
-    <!-- Background Music -->
-    <audio id="bg-music">
-        <source src="hp.mp3" type="audio/mpeg">
+
+    <!-- Flower burst container -->
+    <div id="flower-burst-container"></div>
+
+    <!-- Letter spotlight overlay -->
+    <div id="letter-spotlight" class="letter-spotlight"></div>
+
+    <!-- Vine decorations -->
+    <div class="vine-left">
+        <span>🌿</span>
+        <span>🌸</span>
+        <span>🌿</span>
+        <span>🌷</span>
+        <span>🌿</span>
+        <span>🌹</span>
+        <span>🌿</span>
+    </div>
+    <div class="vine-right">
+        <span>🌿</span>
+        <span>🌹</span>
+        <span>🌿</span>
+        <span>🌷</span>
+        <span>🌿</span>
+        <span>🌸</span>
+        <span>🌿</span>
+    </div>
+
+    <!-- Background Music (plays throughout the page, 40% volume) -->
+    <audio id="background-music" loop>
+        <source src="background-video.mp4" type="audio/mp4">
     </audio>
-    
-    <!-- Minimal Click-to-Start -->
-    <div id="start-screen" class="fixed inset-0 start-overlay z-50 flex items-center justify-center">
-        <div class="text-center px-6">
-            <div class="text-8xl mb-8 heartbeat">💜</div>
-            <h2 class="text-5xl md:text-6xl text-white font-bold mb-4 script-font glow-text">
+
+    <!-- Elvis Song - plays only when letter is opened (looping, 45% volume) -->
+    <audio id="elvis-song" loop>
+        <source src="elvis-song.mp4" type="audio/mp4">
+    </audio>
+
+    <!-- Beautiful Start Screen with Detailed SVG Florals -->
+    <div id="start-screen" class="fixed inset-0 start-overlay z-50 flex items-center justify-center overflow-hidden">
+        <!-- Floating detailed SVG flowers in background -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+
+            <!-- Top left - Beautiful Purple Daisy (16 petals like reference) -->
+            <svg class="absolute top-6 left-6 w-32 h-32 opacity-40" viewBox="0 0 100 100"
+                style="animation: bloomPulse 5s ease-in-out infinite;">
+                <defs>
+                    <linearGradient id="startDaisyGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#c4b5fd" />
+                        <stop offset="100%" stop-color="#8b5cf6" />
+                    </linearGradient>
+                    <filter id="daisyShadow1" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3" />
+                    </filter>
+                </defs>
+                <g transform="translate(50,50)" filter="url(#daisyShadow1)">
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(0) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(22.5) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(45) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(67.5) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(90) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(112.5) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(135) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(157.5) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(180) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(202.5) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(225) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(247.5) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(270) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(292.5) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(315) translate(0,-25)" />
+                    <ellipse rx="3" ry="20" fill="url(#startDaisyGrad1)" transform="rotate(337.5) translate(0,-25)" />
+                    <circle r="10" fill="#fbbf24" />
+                    <circle r="6" fill="#f59e0b" />
+                </g>
+            </svg>
+
+            <!-- Top right - Pink Lotus (layered petals like reference) -->
+            <svg class="absolute top-8 right-8 w-36 h-36 opacity-35" viewBox="0 0 100 100"
+                style="animation: bloomPulse 4s ease-in-out infinite 1s;">
+                <defs>
+                    <linearGradient id="startLotusOuter" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#fce7f3" />
+                        <stop offset="100%" stop-color="#f9a8d4" />
+                    </linearGradient>
+                    <linearGradient id="startLotusMid" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#fbcfe8" />
+                        <stop offset="100%" stop-color="#ec4899" />
+                    </linearGradient>
+                    <linearGradient id="startLotusInner" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#fdf2f8" />
+                        <stop offset="100%" stop-color="#f472b6" />
+                    </linearGradient>
+                    <filter id="lotusShadow1" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.2" />
+                    </filter>
+                </defs>
+                <g transform="translate(50,55)" filter="url(#lotusShadow1)">
+                    <ellipse cx="-22" cy="5" rx="14" ry="26" fill="url(#startLotusOuter)" transform="rotate(-30)"
+                        opacity="0.8" />
+                    <ellipse cx="22" cy="5" rx="14" ry="26" fill="url(#startLotusOuter)" transform="rotate(30)"
+                        opacity="0.8" />
+                    <ellipse cx="-15" cy="0" rx="12" ry="28" fill="url(#startLotusOuter)" transform="rotate(-15)"
+                        opacity="0.85" />
+                    <ellipse cx="15" cy="0" rx="12" ry="28" fill="url(#startLotusOuter)" transform="rotate(15)"
+                        opacity="0.85" />
+                    <ellipse cx="-8" cy="-5" rx="10" ry="24" fill="url(#startLotusMid)" transform="rotate(-8)"
+                        opacity="0.9" />
+                    <ellipse cx="8" cy="-5" rx="10" ry="24" fill="url(#startLotusMid)" transform="rotate(8)"
+                        opacity="0.9" />
+                    <ellipse cx="0" cy="-8" rx="9" ry="22" fill="url(#startLotusMid)" opacity="0.92" />
+                    <ellipse cx="-4" cy="-10" rx="7" ry="18" fill="url(#startLotusInner)" transform="rotate(-5)"
+                        opacity="0.95" />
+                    <ellipse cx="4" cy="-10" rx="7" ry="18" fill="url(#startLotusInner)" transform="rotate(5)"
+                        opacity="0.95" />
+                    <ellipse cx="0" cy="-12" rx="5" ry="15" fill="#fff0f7" opacity="0.9" />
+                    <circle cx="0" cy="5" r="6" fill="#fcd34d" />
+                </g>
+            </svg>
+
+            <!-- Bottom left - Another Purple Daisy (different shade) -->
+            <svg class="absolute bottom-12 left-12 w-28 h-28 opacity-30" viewBox="0 0 100 100"
+                style="animation: bloomPulse 6s ease-in-out infinite 2s;">
+                <defs>
+                    <linearGradient id="startDaisyGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ddd6fe" />
+                        <stop offset="100%" stop-color="#a78bfa" />
+                    </linearGradient>
+                </defs>
+                <g transform="translate(50,50)">
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(0) translate(0,-22)" />
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(30) translate(0,-22)" />
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(60) translate(0,-22)" />
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(90) translate(0,-22)" />
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(120) translate(0,-22)" />
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(150) translate(0,-22)" />
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(180) translate(0,-22)" />
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(210) translate(0,-22)" />
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(240) translate(0,-22)" />
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(270) translate(0,-22)" />
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(300) translate(0,-22)" />
+                    <ellipse rx="4" ry="18" fill="url(#startDaisyGrad2)" transform="rotate(330) translate(0,-22)" />
+                    <circle r="9" fill="#fbbf24" />
+                    <circle r="5" fill="#f59e0b" />
+                </g>
+            </svg>
+
+            <!-- Bottom right - Elegant Flower -->
+            <svg class="absolute bottom-8 right-16 w-24 h-24 opacity-35" viewBox="0 0 100 100"
+                style="animation: bloomPulse 4.5s ease-in-out infinite 0.5s;">
+                <defs>
+                    <radialGradient id="startElegantPetal" cx="30%" cy="30%">
+                        <stop offset="0%" stop-color="#fdf4ff" />
+                        <stop offset="50%" stop-color="#e9d5ff" />
+                        <stop offset="100%" stop-color="#c4b5fd" />
+                    </radialGradient>
+                    <filter id="elegantShadow1">
+                        <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.2" />
+                    </filter>
+                </defs>
+                <g transform="translate(50,50)" filter="url(#elegantShadow1)">
+                    <ellipse rx="8" ry="28" fill="url(#startElegantPetal)" transform="rotate(0) translate(0,-12)" />
+                    <ellipse rx="8" ry="28" fill="url(#startElegantPetal)" transform="rotate(60) translate(0,-12)" />
+                    <ellipse rx="8" ry="28" fill="url(#startElegantPetal)" transform="rotate(120) translate(0,-12)" />
+                    <ellipse rx="8" ry="28" fill="url(#startElegantPetal)" transform="rotate(180) translate(0,-12)" />
+                    <ellipse rx="8" ry="28" fill="url(#startElegantPetal)" transform="rotate(240) translate(0,-12)" />
+                    <ellipse rx="8" ry="28" fill="url(#startElegantPetal)" transform="rotate(300) translate(0,-12)" />
+                    <circle r="10" fill="#fbbf24" />
+                    <circle r="6" fill="#f59e0b" />
+                    <circle r="3" fill="#d97706" />
+                </g>
+            </svg>
+
+            <!-- Center left - Small lotus -->
+            <svg class="absolute top-1/3 left-8 w-20 h-20 opacity-25" viewBox="0 0 100 100"
+                style="animation: float-up 12s ease-in-out infinite;">
+                <g transform="translate(50,55)">
+                    <ellipse cx="-12" cy="3" rx="8" ry="16" fill="#fbcfe8" transform="rotate(-20)" opacity="0.8" />
+                    <ellipse cx="12" cy="3" rx="8" ry="16" fill="#fbcfe8" transform="rotate(20)" opacity="0.8" />
+                    <ellipse cx="0" cy="-3" rx="7" ry="14" fill="#f9a8d4" opacity="0.9" />
+                    <circle cx="0" cy="3" r="4" fill="#fcd34d" />
+                </g>
+            </svg>
+
+            <!-- Center right - Small daisy -->
+            <svg class="absolute top-1/2 right-12 w-18 h-18 opacity-20" viewBox="0 0 100 100"
+                style="animation: float-up 10s ease-in-out infinite 3s;">
+                <g transform="translate(50,50)">
+                    <ellipse rx="3" ry="14" fill="#c4b5fd" transform="rotate(0) translate(0,-16)" />
+                    <ellipse rx="3" ry="14" fill="#c4b5fd" transform="rotate(45) translate(0,-16)" />
+                    <ellipse rx="3" ry="14" fill="#c4b5fd" transform="rotate(90) translate(0,-16)" />
+                    <ellipse rx="3" ry="14" fill="#c4b5fd" transform="rotate(135) translate(0,-16)" />
+                    <ellipse rx="3" ry="14" fill="#c4b5fd" transform="rotate(180) translate(0,-16)" />
+                    <ellipse rx="3" ry="14" fill="#c4b5fd" transform="rotate(225) translate(0,-16)" />
+                    <ellipse rx="3" ry="14" fill="#c4b5fd" transform="rotate(270) translate(0,-16)" />
+                    <ellipse rx="3" ry="14" fill="#c4b5fd" transform="rotate(315) translate(0,-16)" />
+                    <circle r="6" fill="#fbbf24" />
+                </g>
+            </svg>
+
+            <!-- Scattered small blossoms -->
+            <svg class="absolute top-1/4 left-1/4 w-10 h-10 opacity-20" viewBox="0 0 100 100"
+                style="animation: float-up 8s ease-in-out infinite;">
+                <circle cx="50" cy="50" r="20" fill="#f9a8d4" />
+            </svg>
+            <svg class="absolute top-1/3 right-1/3 w-8 h-8 opacity-15" viewBox="0 0 100 100"
+                style="animation: float-up 10s ease-in-out infinite 2s;">
+                <circle cx="50" cy="50" r="25" fill="#c4b5fd" />
+            </svg>
+            <svg class="absolute bottom-1/3 left-1/3 w-12 h-12 opacity-20" viewBox="0 0 100 100"
+                style="animation: float-up 9s ease-in-out infinite 1s;">
+                <circle cx="50" cy="50" r="22" fill="#fda4af" />
+            </svg>
+        </div>
+
+        <!-- Main content -->
+        <div class="text-center px-6 relative z-10">
+            <!-- Decorative top flowers -->
+            <div class="flex justify-center gap-4 mb-6">
+                <svg class="w-8 h-8 opacity-70" viewBox="0 0 100 100">
+                    <g transform="translate(50,50)">
+                        <ellipse rx="16" ry="7" fill="#fce7f3" transform="rotate(0) translate(10,0)" />
+                        <ellipse rx="16" ry="7" fill="#fce7f3" transform="rotate(72) translate(10,0)" />
+                        <ellipse rx="16" ry="7" fill="#fce7f3" transform="rotate(144) translate(10,0)" />
+                        <ellipse rx="16" ry="7" fill="#fce7f3" transform="rotate(216) translate(10,0)" />
+                        <ellipse rx="16" ry="7" fill="#fce7f3" transform="rotate(288) translate(10,0)" />
+                        <circle r="5" fill="#fbbf24" />
+                    </g>
+                </svg>
+                <svg class="w-6 h-6 opacity-60" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="30" fill="#f9a8d4" />
+                </svg>
+                <svg class="w-8 h-8 opacity-70" viewBox="0 0 100 100">
+                    <g transform="translate(50,50)">
+                        <ellipse rx="16" ry="7" fill="#fce7f3" transform="rotate(36) translate(10,0)" />
+                        <ellipse rx="16" ry="7" fill="#fce7f3" transform="rotate(108) translate(10,0)" />
+                        <ellipse rx="16" ry="7" fill="#fce7f3" transform="rotate(180) translate(10,0)" />
+                        <ellipse rx="16" ry="7" fill="#fce7f3" transform="rotate(252) translate(10,0)" />
+                        <ellipse rx="16" ry="7" fill="#fce7f3" transform="rotate(324) translate(10,0)" />
+                        <circle r="5" fill="#fbbf24" />
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Main heart with glow -->
+            <div class="relative inline-block mb-6">
+                <div class="text-7xl md:text-8xl heartbeat filter drop-shadow-lg">💜</div>
+                <div class="absolute inset-0 text-7xl md:text-8xl blur-xl opacity-50">💜</div>
+            </div>
+
+            <!-- Title with elegant styling -->
+            <h2 class="text-4xl md:text-6xl text-white font-bold mb-3 script-font glow-text">
                 For Pragati
             </h2>
-            <p class="text-white/90 text-lg mb-8">
-                Tap anywhere to begin
+
+            <!-- Romantic subtitle -->
+            <p class="text-white/80 text-base md:text-lg mb-6 font-light tracking-wide">
+                A little something special just for you
             </p>
-            <div class="text-white/70 text-sm">
-                🎵 Music included
+
+            <!-- Decorative line with flowers -->
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <div class="w-16 h-px bg-gradient-to-r from-transparent to-white/40"></div>
+                <svg class="w-6 h-6 opacity-80" viewBox="0 0 100 100">
+                    <g transform="translate(50,50)">
+                        <ellipse rx="14" ry="6" fill="#fce7f3" transform="rotate(0) translate(8,0)" />
+                        <ellipse rx="14" ry="6" fill="#fce7f3" transform="rotate(72) translate(8,0)" />
+                        <ellipse rx="14" ry="6" fill="#fce7f3" transform="rotate(144) translate(8,0)" />
+                        <ellipse rx="14" ry="6" fill="#fce7f3" transform="rotate(216) translate(8,0)" />
+                        <ellipse rx="14" ry="6" fill="#fce7f3" transform="rotate(288) translate(8,0)" />
+                        <circle r="4" fill="#fcd34d" />
+                    </g>
+                </svg>
+                <div class="w-16 h-px bg-gradient-to-l from-transparent to-white/40"></div>
+            </div>
+
+            <!-- Call to action -->
+            <div class="space-y-3">
+                <p class="text-white/90 text-lg font-medium">
+                    Tap anywhere to begin ✨
+                </p>
+                <div class="flex items-center justify-center gap-2 text-white/60 text-sm">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z" />
+                    </svg>
+                    <span>Music included</span>
+                </div>
+            </div>
+
+            <!-- Bottom decorative flowers -->
+            <div class="flex justify-center gap-3 mt-8">
+                <svg class="w-6 h-6 opacity-50" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="25" fill="#c4b5fd" />
+                </svg>
+                <svg class="w-8 h-8 opacity-60" viewBox="0 0 100 100">
+                    <g transform="translate(50,50)">
+                        <ellipse rx="14" ry="6" fill="#fbcfe8" transform="rotate(0) translate(9,0)" />
+                        <ellipse rx="14" ry="6" fill="#fbcfe8" transform="rotate(72) translate(9,0)" />
+                        <ellipse rx="14" ry="6" fill="#fbcfe8" transform="rotate(144) translate(9,0)" />
+                        <ellipse rx="14" ry="6" fill="#fbcfe8" transform="rotate(216) translate(9,0)" />
+                        <ellipse rx="14" ry="6" fill="#fbcfe8" transform="rotate(288) translate(9,0)" />
+                        <circle r="4" fill="#fcd34d" />
+                    </g>
+                </svg>
+                <svg class="w-6 h-6 opacity-50" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="25" fill="#f9a8d4" />
+                </svg>
             </div>
         </div>
     </div>
-    
+
     <!-- Floating elements container -->
     <div id="floating-container"></div>
-    
+
     <!-- Background decorative blobs -->
     <div class="blob parallax-layer w-96 h-96 bg-purple-300 top-10 -left-48" data-speed="0.3"></div>
     <div class="blob parallax-layer w-80 h-80 bg-pink-400 top-96 right-0" data-speed="0.5"></div>
     <div class="blob parallax-layer w-72 h-72 bg-purple-200 bottom-20 left-1/4" data-speed="0.4"></div>
     <div class="blob parallax-layer w-64 h-64 bg-pink-300 top-1/2 right-1/4" data-speed="0.35"></div>
-    
+
     <!-- Countdown Screen -->
-    <div id="countdown-screen" class="fixed inset-0 bg-gradient-to-br from-purple-900 via-pink-900 to-purple-900 z-40 flex items-center justify-center">
+    <div id="countdown-screen"
+        class="fixed inset-0 bg-gradient-to-br from-purple-900 via-pink-900 to-purple-900 z-40 flex items-center justify-center">
         <div class="text-center px-6">
-            <div class="text-7xl mb-6 sparkle cake-bounce">🎂💜🎈</div>
+            <div class="flex justify-center gap-4 mb-6 sparkle">
+                <svg class="w-16 h-16 md:w-20 md:h-20" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="countdownDaisy" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#e9d5ff" />
+                            <stop offset="100%" stop-color="#a855f7" />
+                        </linearGradient>
+                    </defs>
+                    <g transform="translate(50,50)">
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)" transform="rotate(0) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)" transform="rotate(22.5) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)" transform="rotate(45) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)" transform="rotate(67.5) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)" transform="rotate(90) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)"
+                            transform="rotate(112.5) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)" transform="rotate(135) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)"
+                            transform="rotate(157.5) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)" transform="rotate(180) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)"
+                            transform="rotate(202.5) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)" transform="rotate(225) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)"
+                            transform="rotate(247.5) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)" transform="rotate(270) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)"
+                            transform="rotate(292.5) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)" transform="rotate(315) translate(0,-22)" />
+                        <ellipse rx="3" ry="18" fill="url(#countdownDaisy)"
+                            transform="rotate(337.5) translate(0,-22)" />
+                        <circle r="9" fill="#fbbf24" />
+                        <circle r="5" fill="#f59e0b" />
+                    </g>
+                </svg>
+                <svg class="w-14 h-14 md:w-16 md:h-16" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="cakeGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#fbcfe8" />
+                            <stop offset="100%" stop-color="#ec4899" />
+                        </linearGradient>
+                        <linearGradient id="frostingGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#fdf4ff" />
+                            <stop offset="100%" stop-color="#e9d5ff" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Cake base -->
+                    <rect x="20" y="50" width="60" height="35" rx="5" fill="url(#cakeGrad1)" />
+                    <!-- Frosting waves -->
+                    <path d="M20,50 Q30,40 40,50 Q50,40 60,50 Q70,40 80,50" fill="none" stroke="url(#frostingGrad)"
+                        stroke-width="8" stroke-linecap="round" />
+                    <!-- Candle -->
+                    <rect x="47" y="25" width="6" height="25" rx="2" fill="#fbbf24" />
+                    <!-- Flame -->
+                    <ellipse cx="50" cy="20" rx="5" ry="8" fill="#f97316" />
+                    <ellipse cx="50" cy="18" rx="3" ry="5" fill="#fcd34d" />
+                    <!-- Decorations -->
+                    <circle cx="30" cy="65" r="3" fill="#c4b5fd" />
+                    <circle cx="50" cy="70" r="3" fill="#c4b5fd" />
+                    <circle cx="70" cy="65" r="3" fill="#c4b5fd" />
+                </svg>
+                <svg class="w-16 h-16 md:w-20 md:h-20" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="countdownLotus" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#fce7f3" />
+                            <stop offset="100%" stop-color="#ec4899" />
+                        </linearGradient>
+                    </defs>
+                    <g transform="translate(50,55)">
+                        <ellipse cx="-15" cy="3" rx="10" ry="20" fill="url(#countdownLotus)" transform="rotate(-20)"
+                            opacity="0.8" />
+                        <ellipse cx="15" cy="3" rx="10" ry="20" fill="url(#countdownLotus)" transform="rotate(20)"
+                            opacity="0.8" />
+                        <ellipse cx="-8" cy="-2" rx="8" ry="18" fill="#fbcfe8" transform="rotate(-10)" opacity="0.9" />
+                        <ellipse cx="8" cy="-2" rx="8" ry="18" fill="#fbcfe8" transform="rotate(10)" opacity="0.9" />
+                        <ellipse cx="0" cy="-5" rx="6" ry="15" fill="#fdf2f8" opacity="0.95" />
+                        <circle cx="0" cy="4" r="5" fill="#fcd34d" />
+                    </g>
+                </svg>
+            </div>
             <h1 class="text-3xl md:text-6xl text-white script-font mb-4 glow-text">
                 The celebration begins soon...
             </h1>
@@ -349,29 +1045,93 @@
             <div id="countdown" class="text-4xl md:text-7xl font-bold text-white mb-4">
                 00:00:00
             </div>
-            </div>
+        </div>
     </div>
-    
+
     <!-- Main Content -->
     <div id="main-content" class="locked">
-        
+
         <!-- Hero Section -->
         <section class="min-h-screen flex items-center justify-center relative px-4 md:px-6 py-16 md:py-20">
             <div class="text-center max-w-3xl mx-auto z-10 fade-in parallax-layer" data-speed="0.2">
-                <div class="text-6xl md:text-8xl mb-6 cake-bounce">🎂💜🎈</div>
-                <h1 class="text-4xl md:text-7xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent script-font mb-8 md:mb-12 glow-text px-4">
+                <div class="flex justify-center gap-4 mb-6">
+                    <svg class="w-14 h-14 md:w-20 md:h-20" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="heroDaisy" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#c4b5fd" />
+                                <stop offset="100%" stop-color="#8b5cf6" />
+                            </linearGradient>
+                        </defs>
+                        <g transform="translate(50,50)">
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(0) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(22.5) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(45) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(67.5) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(90) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(112.5) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(135) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(157.5) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(180) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(202.5) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(225) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(247.5) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(270) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(292.5) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(315) translate(0,-22)" />
+                            <ellipse rx="3" ry="18" fill="url(#heroDaisy)" transform="rotate(337.5) translate(0,-22)" />
+                            <circle r="9" fill="#fbbf24" />
+                            <circle r="5" fill="#f59e0b" />
+                        </g>
+                    </svg>
+                    <svg class="w-12 h-12 md:w-16 md:h-16" viewBox="0 0 100 100">
+                        <!-- Cake base -->
+                        <rect x="20" y="50" width="60" height="35" rx="5" fill="#fbcfe8" />
+                        <!-- Frosting waves -->
+                        <path d="M20,50 Q30,40 40,50 Q50,40 60,50 Q70,40 80,50" fill="none" stroke="#e9d5ff"
+                            stroke-width="8" stroke-linecap="round" />
+                        <!-- Candle -->
+                        <rect x="47" y="25" width="6" height="25" rx="2" fill="#fbbf24" />
+                        <!-- Flame -->
+                        <ellipse cx="50" cy="20" rx="5" ry="8" fill="#f97316" />
+                        <ellipse cx="50" cy="18" rx="3" ry="5" fill="#fcd34d" />
+                        <!-- Decorations -->
+                        <circle cx="30" cy="65" r="3" fill="#c4b5fd" />
+                        <circle cx="50" cy="70" r="3" fill="#c4b5fd" />
+                        <circle cx="70" cy="65" r="3" fill="#c4b5fd" />
+                    </svg>
+                    <svg class="w-14 h-14 md:w-20 md:h-20" viewBox="0 0 100 100">
+                        <g transform="translate(50,55)">
+                            <ellipse cx="-15" cy="3" rx="10" ry="20" fill="#fbcfe8" transform="rotate(-20)"
+                                opacity="0.8" />
+                            <ellipse cx="15" cy="3" rx="10" ry="20" fill="#fbcfe8" transform="rotate(20)"
+                                opacity="0.8" />
+                            <ellipse cx="-8" cy="-2" rx="8" ry="18" fill="#f9a8d4" transform="rotate(-10)"
+                                opacity="0.9" />
+                            <ellipse cx="8" cy="-2" rx="8" ry="18" fill="#f9a8d4" transform="rotate(10)"
+                                opacity="0.9" />
+                            <ellipse cx="0" cy="-5" rx="6" ry="15" fill="#fdf2f8" opacity="0.95" />
+                            <circle cx="0" cy="4" r="5" fill="#fcd34d" />
+                        </g>
+                    </svg>
+                </div>
+                <h1
+                    class="text-4xl md:text-7xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent script-font mb-8 md:mb-12 glow-text px-4">
                     Happy Birthday Pragati!
                 </h1>
                 <div class="hero-text px-4 md:px-8">
                     <p>Happy Birthday to someone truly extraordinary!</p>
-                    <p>Today is YOUR day — a celebration of everything amazing you are and everything incredible you're destined to become.</p>
-                    <p>May this year bring you closer to every dream you've ever held in your heart, and may you achieve everything you've ever imagined and more.</p>
-                    <p class="highlight">May God's light shine brightest upon you, guiding your path toward endless happiness, success, and all the beautiful things life has to offer.</p>
-                    <p>You deserve nothing less than extraordinary, and I know this year will be filled with moments that remind you just how special you are.</p>
+                    <p>Today is YOUR day — a celebration of everything amazing you are and everything incredible you're
+                        destined to become.</p>
+                    <p>May this year bring you closer to every dream you've ever held in your heart, and may you achieve
+                        everything you've ever imagined and more.</p>
+                    <p class="highlight">May God's light shine brightest upon you, guiding your path toward endless
+                        happiness, success, and all the beautiful things life has to offer.</p>
+                    <p>You deserve nothing less than extraordinary, and I know this year will be filled with moments
+                        that remind you just how special you are.</p>
                 </div>
             </div>
         </section>
-        
+
         <!-- Reasons Counter Section -->
         <section class="py-16 md:py-20 px-4 md:px-6">
             <div class="max-w-4xl mx-auto parallax-layer" data-speed="0.16">
@@ -385,27 +1145,32 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
                         <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl">
-                            <div class="text-4xl md:text-5xl font-bold text-purple-600 mb-2 count-animation" data-count="365">0</div>
+                            <div class="text-4xl md:text-5xl font-bold text-purple-600 mb-2 count-animation"
+                                data-count="365">0</div>
                             <p class="text-gray-700 text-sm md:text-base">Days a year you make me smile</p>
                         </div>
                         <div class="text-center p-6 bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl">
-                            <div class="text-4xl md:text-5xl font-bold text-pink-600 mb-2 count-animation" data-count="100">0</div>
+                            <div class="text-4xl md:text-5xl font-bold text-pink-600 mb-2 count-animation"
+                                data-count="100">0</div>
                             <p class="text-gray-700 text-sm md:text-base">Reasons why you're amazing</p>
                         </div>
                         <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl">
-                            <div class="text-4xl md:text-5xl font-bold text-purple-600 mb-2 count-animation" data-count="1">0</div>
+                            <div class="text-4xl md:text-5xl font-bold text-purple-600 mb-2 count-animation"
+                                data-count="1">0</div>
                             <p class="text-gray-700 text-sm md:text-base">Person like you in the world</p>
                         </div>
                     </div>
-                    <button id="reveal-reason-btn" class="mx-auto block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 md:px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all hover:scale-105 text-sm md:text-base">
+                    <button id="reveal-reason-btn"
+                        class="mx-auto block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 md:px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all hover:scale-105 text-sm md:text-base">
                         Click for a Random Reason 💜
                     </button>
-                    <div id="random-reason" class="mt-6 text-center text-base md:text-lg text-purple-700 font-semibold opacity-0 transition-opacity duration-500 min-h-[60px] flex items-center justify-center px-4">
+                    <div id="random-reason"
+                        class="mt-6 text-center text-base md:text-lg text-purple-700 font-semibold opacity-0 transition-opacity duration-500 min-h-[60px] flex items-center justify-center px-4">
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <!-- What Makes You Special Section -->
         <section class="py-16 md:py-20 px-4 md:px-6">
             <div class="max-w-4xl mx-auto parallax-layer" data-speed="0.15">
@@ -417,36 +1182,46 @@
                         </h2>
                     </div>
                     <div class="space-y-4 md:space-y-6 text-base md:text-lg text-gray-700 better-text">
-                        <div class="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4 bg-gradient-to-r from-purple-50 to-pink-50 p-4 md:p-6 rounded-2xl hover:shadow-md transition-all">
+                        <div
+                            class="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4 bg-gradient-to-r from-purple-50 to-pink-50 p-4 md:p-6 rounded-2xl hover:shadow-md transition-all">
                             <span class="text-4xl">🚶‍♀️💜</span>
                             <div>
-                                <h3 class="font-semibold text-purple-700 mb-2 text-lg md:text-xl">Our walks home together</h3>
-                                <p>Those walks are honestly my favorite part of the day. Time feels different when we're talking — like it goes too fast! You are the one person that I can really talk with, throwing out my introversion out the window.</p>
+                                <h3 class="font-semibold text-purple-700 mb-2 text-lg md:text-xl">Our walks home
+                                    together</h3>
+                                <p>Those walks are honestly my favorite part of the day. Time feels different when we're
+                                    talking — like it goes too fast! You are the one person that I can really talk with,
+                                    throwing out my introversion out the window.</p>
                             </div>
                         </div>
-                        <div class="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4 bg-gradient-to-r from-pink-50 to-purple-50 p-4 md:p-6 rounded-2xl hover:shadow-md transition-all">
+                        <div
+                            class="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4 bg-gradient-to-r from-pink-50 to-purple-50 p-4 md:p-6 rounded-2xl hover:shadow-md transition-all">
                             <span class="text-4xl">😊✨</span>
                             <div>
                                 <h3 class="font-semibold text-purple-700 mb-2 text-lg md:text-xl">Your presence</h3>
-                                <p>You have this way of making everything feel lighter. Even ordinary days feel special when you're around. So again, a big Happy Birthday to You!</p>
+                                <p>You have this way of making everything feel lighter. Even ordinary days feel special
+                                    when you're around. So again, a big Happy Birthday to You!</p>
                             </div>
                         </div>
-                        <div class="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4 bg-gradient-to-r from-purple-50 to-pink-50 p-4 md:p-6 rounded-2xl hover:shadow-md transition-all">
+                        <div
+                            class="flex flex-col sm:flex-row items-start space-y-3 sm:space-y-0 sm:space-x-4 bg-gradient-to-r from-purple-50 to-pink-50 p-4 md:p-6 rounded-2xl hover:shadow-md transition-all">
                             <span class="text-4xl">💭💖</span>
                             <div>
-                                <h3 class="font-semibold text-purple-700 mb-2 text-lg md:text-xl">How easy it is to talk to you</h3>
-                                <p>I am able to talk to you about just anything. You just get it, and that means more than you know.</p>
+                                <h3 class="font-semibold text-purple-700 mb-2 text-lg md:text-xl">How easy it is to talk
+                                    to you</h3>
+                                <p>I am able to talk to you about just anything. You just get it, and that means more
+                                    than you know.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <!-- Memory Timeline Section -->
         <section class="py-16 md:py-20 px-4 md:px-6">
             <div class="max-w-4xl mx-auto parallax-layer" data-speed="0.13">
-                <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl shadow-2xl p-6 md:p-12 border border-purple-300">
+                <div
+                    class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl shadow-2xl p-6 md:p-12 border border-purple-300">
                     <div class="text-center mb-8 md:mb-12">
                         <span class="text-5xl">⏳💜</span>
                         <h2 class="text-3xl md:text-4xl font-bold text-purple-800 mt-4 script-font">
@@ -458,39 +1233,51 @@
                         <div class="timeline-line hidden md:block"></div>
                         <div class="space-y-6 md:space-y-8">
                             <div class="flex items-start gap-3 md:gap-8">
-                                <div class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 bg-purple-500 rounded-full flex items-center justify-center text-xl md:text-2xl z-10">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 bg-purple-500 rounded-full flex items-center justify-center text-xl md:text-2xl z-10">
                                     🌟
                                 </div>
                                 <div class="flex-1 bg-white/70 p-4 md:p-6 rounded-2xl shadow-md">
-                                    <h3 class="font-bold text-purple-700 mb-2 text-base md:text-lg">The First Time We Talked</h3>
-                                    <p class="text-sm md:text-base text-gray-700">That's when everything clicked. Conversations felt natural, you might have been the first girl outside of my made up circle that i actully talked great with.</p>
+                                    <h3 class="font-bold text-purple-700 mb-2 text-base md:text-lg">The First Time We
+                                        Talked</h3>
+                                    <p class="text-sm md:text-base text-gray-700">That's when everything clicked.
+                                        Conversations felt natural, you might have been the first girl outside of my
+                                        made up circle that i actully talked great with.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3 md:gap-8 md:flex-row-reverse">
-                                <div class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 bg-pink-500 rounded-full flex items-center justify-center text-xl md:text-2xl z-10">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 bg-pink-500 rounded-full flex items-center justify-center text-xl md:text-2xl z-10">
                                     🚶‍♀️
                                 </div>
                                 <div class="flex-1 bg-white/70 p-4 md:p-6 rounded-2xl shadow-md md:text-right">
-                                    <h3 class="font-bold text-pink-700 mb-2 text-base md:text-lg">Our First Walk Home</h3>
-                                    <p class="text-sm md:text-base text-gray-700">I quite vivdly remember walking back the first time, after pre-boards, I could have never thought that we could have become such good friends</p>
+                                    <h3 class="font-bold text-pink-700 mb-2 text-base md:text-lg">Our First Walk Home
+                                    </h3>
+                                    <p class="text-sm md:text-base text-gray-700">I quite vivdly remember walking back
+                                        the first time, after pre-boards, I could have never thought that we could have
+                                        become such good friends</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3 md:gap-8">
-                                <div class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 bg-purple-500 rounded-full flex items-center justify-center text-xl md:text-2xl z-10">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 bg-purple-500 rounded-full flex items-center justify-center text-xl md:text-2xl z-10">
                                     😊
                                 </div>
                                 <div class="flex-1 bg-white/70 p-4 md:p-6 rounded-2xl shadow-md">
                                     <h3 class="font-bold text-purple-700 mb-2 text-base md:text-lg">Every Day Since</h3>
-                                    <p class="text-sm md:text-base text-gray-700">You've made every single day better just by being you. Looking forward to many more.</p>
+                                    <p class="text-sm md:text-base text-gray-700">You've made every single day better
+                                        just by being you. Looking forward to many more.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3 md:gap-8 md:flex-row-reverse">
-                                <div class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 bg-pink-500 rounded-full flex items-center justify-center text-xl md:text-2xl z-10 heartbeat">
+                                <div
+                                    class="flex-shrink-0 w-12 h-12 md:w-16 md:h-16 bg-pink-500 rounded-full flex items-center justify-center text-xl md:text-2xl z-10 heartbeat">
                                     💜
                                 </div>
                                 <div class="flex-1 bg-white/70 p-4 md:p-6 rounded-2xl shadow-md md:text-right">
                                     <h3 class="font-bold text-pink-700 mb-2 text-base md:text-lg">Today & Beyond</h3>
-                                    <p class="text-sm md:text-base text-gray-700">Happy Birthday! Here's to creating countless more beautiful memories together.</p>
+                                    <p class="text-sm md:text-base text-gray-700">Happy Birthday! Here's to creating
+                                        countless more beautiful memories together.</p>
                                 </div>
                             </div>
                         </div>
@@ -498,11 +1285,12 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Things I Love About You Section -->
         <section class="py-16 md:py-20 px-4 md:px-6">
             <div class="max-w-4xl mx-auto parallax-layer" data-speed="0.1">
-                <div class="bg-gradient-to-br from-purple-100 via-pink-50 to-purple-100 rounded-3xl shadow-2xl p-6 md:p-12 border border-purple-300">
+                <div
+                    class="bg-gradient-to-br from-purple-100 via-pink-50 to-purple-100 rounded-3xl shadow-2xl p-6 md:p-12 border border-purple-300">
                     <div class="text-center mb-8">
                         <span class="text-5xl heartbeat">💜</span>
                         <h2 class="text-3xl md:text-4xl font-bold text-purple-800 mt-4 script-font">
@@ -510,26 +1298,136 @@
                         </h2>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 text-gray-700 better-text">
-                        <div class="bg-white/60 rounded-2xl p-4 md:p-6 hover:shadow-lg transition-all hover:scale-105 border border-pink-100">
+                        <div
+                            class="bg-white/60 rounded-2xl p-4 md:p-6 hover:shadow-lg transition-all hover:scale-105 border border-pink-100">
                             <div class="text-4xl md:text-5xl mb-3 md:mb-4 text-center">🌸</div>
-                            <h3 class="font-semibold text-lg md:text-xl text-purple-700 mb-2 md:mb-3 text-center">Your kindness</h3>
-                            <p class="text-center text-sm md:text-base">You genuinely smile. It's one of the first things I noticed about you.</p>
+                            <h3 class="font-semibold text-lg md:text-xl text-purple-700 mb-2 md:mb-3 text-center">Your
+                                kindness</h3>
+                            <p class="text-center text-sm md:text-base">You genuinely smile. It's one of the first
+                                things I noticed about you.</p>
                         </div>
-                        <div class="bg-white/60 rounded-2xl p-4 md:p-6 hover:shadow-lg transition-all hover:scale-105 border border-purple-100">
+                        <div
+                            class="bg-white/60 rounded-2xl p-4 md:p-6 hover:shadow-lg transition-all hover:scale-105 border border-purple-100">
                             <div class="text-4xl md:text-5xl mb-3 md:mb-4 text-center">✨</div>
-                            <h3 class="font-semibold text-lg md:text-xl text-purple-700 mb-2 md:mb-3 text-center">Your energy</h3>
-                            <p class="text-center text-sm md:text-base">You light up every space you're in. It's magnetic and god I wish you always remain the same (good changes are still alright though).</p>
+                            <h3 class="font-semibold text-lg md:text-xl text-purple-700 mb-2 md:mb-3 text-center">Your
+                                energy</h3>
+                            <p class="text-center text-sm md:text-base">You light up every space you're in. It's
+                                magnetic and god I wish you always remain the same (good changes are still alright
+                                though).</p>
                         </div>
-                        <div class="bg-white/60 rounded-2xl p-4 md:p-6 hover:shadow-lg transition-all hover:scale-105 border border-pink-100 md:col-span-2 max-w-md mx-auto w-full">
+                        <div
+                            class="bg-white/60 rounded-2xl p-4 md:p-6 hover:shadow-lg transition-all hover:scale-105 border border-pink-100 md:col-span-2 max-w-md mx-auto w-full">
                             <div class="text-4xl md:text-5xl mb-3 md:mb-4 text-center">💫</div>
+                        </div>
                     </div>
                 </div>
-            </div>
         </section>
-        
+
         <!-- Love Letter Section -->
-        <section class="py-16 md:py-20 px-4 md:px-6">
+        <section class="py-16 md:py-20 px-4 md:px-6" id="love-letter-section">
             <div class="max-w-4xl mx-auto text-center parallax-layer" data-speed="0.09">
+                <!-- Blooming SVG flowers before letter -->
+                <div id="blooming-flower-container" class="mb-6 relative">
+                    <!-- Main lotus flower -->
+                    <svg class="mx-auto w-24 h-24 md:w-32 md:h-32 blooming-flower bloom-pulse" viewBox="0 0 100 100"
+                        style="animation-delay: 0s;">
+                        <defs>
+                            <linearGradient id="mainLotusOuter" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#fce7f3" />
+                                <stop offset="100%" stop-color="#f9a8d4" />
+                            </linearGradient>
+                            <linearGradient id="mainLotusMid" x1="0%" y1="100%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#fbcfe8" />
+                                <stop offset="100%" stop-color="#ec4899" />
+                            </linearGradient>
+                            <filter id="mainLotusShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.25" />
+                            </filter>
+                        </defs>
+                        <g transform="translate(50,55)" filter="url(#mainLotusShadow)">
+                            <ellipse cx="-22" cy="5" rx="14" ry="26" fill="url(#mainLotusOuter)" transform="rotate(-30)"
+                                opacity="0.8" />
+                            <ellipse cx="22" cy="5" rx="14" ry="26" fill="url(#mainLotusOuter)" transform="rotate(30)"
+                                opacity="0.8" />
+                            <ellipse cx="-15" cy="0" rx="12" ry="28" fill="url(#mainLotusOuter)" transform="rotate(-15)"
+                                opacity="0.85" />
+                            <ellipse cx="15" cy="0" rx="12" ry="28" fill="url(#mainLotusOuter)" transform="rotate(15)"
+                                opacity="0.85" />
+                            <ellipse cx="-8" cy="-5" rx="10" ry="24" fill="url(#mainLotusMid)" transform="rotate(-8)"
+                                opacity="0.9" />
+                            <ellipse cx="8" cy="-5" rx="10" ry="24" fill="url(#mainLotusMid)" transform="rotate(8)"
+                                opacity="0.9" />
+                            <ellipse cx="0" cy="-8" rx="9" ry="22" fill="url(#mainLotusMid)" opacity="0.92" />
+                            <ellipse cx="0" cy="-12" rx="5" ry="15" fill="#fff0f7" opacity="0.9" />
+                            <circle cx="0" cy="5" r="6" fill="#fcd34d" />
+                        </g>
+                    </svg>
+                    <!-- Small accent flowers -->
+                    <div class="flex justify-center gap-6 mt-4">
+                        <svg class="w-12 h-12 blooming-flower" viewBox="0 0 100 100" style="animation-delay: 0.3s;">
+                            <defs>
+                                <linearGradient id="smallDaisy1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#c4b5fd" />
+                                    <stop offset="100%" stop-color="#8b5cf6" />
+                                </linearGradient>
+                            </defs>
+                            <g transform="translate(50,50)">
+                                <ellipse rx="3" ry="16" fill="url(#smallDaisy1)"
+                                    transform="rotate(0) translate(0,-20)" />
+                                <ellipse rx="3" ry="16" fill="url(#smallDaisy1)"
+                                    transform="rotate(45) translate(0,-20)" />
+                                <ellipse rx="3" ry="16" fill="url(#smallDaisy1)"
+                                    transform="rotate(90) translate(0,-20)" />
+                                <ellipse rx="3" ry="16" fill="url(#smallDaisy1)"
+                                    transform="rotate(135) translate(0,-20)" />
+                                <ellipse rx="3" ry="16" fill="url(#smallDaisy1)"
+                                    transform="rotate(180) translate(0,-20)" />
+                                <ellipse rx="3" ry="16" fill="url(#smallDaisy1)"
+                                    transform="rotate(225) translate(0,-20)" />
+                                <ellipse rx="3" ry="16" fill="url(#smallDaisy1)"
+                                    transform="rotate(270) translate(0,-20)" />
+                                <ellipse rx="3" ry="16" fill="url(#smallDaisy1)"
+                                    transform="rotate(315) translate(0,-20)" />
+                                <circle r="7" fill="#fbbf24" />
+                            </g>
+                        </svg>
+                        <svg class="w-10 h-10 blooming-flower" viewBox="0 0 100 100" style="animation-delay: 0.5s;">
+                            <g transform="translate(50,55)">
+                                <ellipse cx="-10" cy="2" rx="7" ry="14" fill="#fbcfe8" transform="rotate(-20)"
+                                    opacity="0.85" />
+                                <ellipse cx="10" cy="2" rx="7" ry="14" fill="#fbcfe8" transform="rotate(20)"
+                                    opacity="0.85" />
+                                <ellipse cx="0" cy="-2" rx="6" ry="12" fill="#f9a8d4" opacity="0.9" />
+                                <circle cx="0" cy="3" r="4" fill="#fcd34d" />
+                            </g>
+                        </svg>
+                        <svg class="w-12 h-12 blooming-flower" viewBox="0 0 100 100" style="animation-delay: 0.7s;">
+                            <defs>
+                                <radialGradient id="smallElegant1" cx="30%" cy="30%">
+                                    <stop offset="0%" stop-color="#fdf4ff" />
+                                    <stop offset="100%" stop-color="#e9d5ff" />
+                                </radialGradient>
+                            </defs>
+                            <g transform="translate(50,50)">
+                                <ellipse rx="6" ry="20" fill="url(#smallElegant1)"
+                                    transform="rotate(0) translate(0,-10)" />
+                                <ellipse rx="6" ry="20" fill="url(#smallElegant1)"
+                                    transform="rotate(60) translate(0,-10)" />
+                                <ellipse rx="6" ry="20" fill="url(#smallElegant1)"
+                                    transform="rotate(120) translate(0,-10)" />
+                                <ellipse rx="6" ry="20" fill="url(#smallElegant1)"
+                                    transform="rotate(180) translate(0,-10)" />
+                                <ellipse rx="6" ry="20" fill="url(#smallElegant1)"
+                                    transform="rotate(240) translate(0,-10)" />
+                                <ellipse rx="6" ry="20" fill="url(#smallElegant1)"
+                                    transform="rotate(300) translate(0,-10)" />
+                                <circle r="8" fill="#fbbf24" />
+                                <circle r="5" fill="#f59e0b" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
                 <div class="mb-8">
                     <div id="letter-seal" class="inline-block cursor-pointer transform hover:scale-110 transition-all">
                         <div class="text-6xl md:text-8xl heartbeat">💌</div>
@@ -537,69 +1435,107 @@
                         <p class="text-pink-500 text-sm">Tap to open</p>
                     </div>
                 </div>
-                
-                <div id="love-letter" class="opacity-0 transition-all duration-1000 transform scale-95">
-                    <div class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-3xl shadow-2xl p-6 md:p-12 border-2 border-pink-200 max-w-2xl mx-auto">
-                        <div class="text-right text-purple-600 mb-6 script-font text-lg md:text-xl">December 9th, 2025</div>
-                        <div class="text-left space-y-4 text-gray-800 better-text text-sm md:text-base">
+
+                <div id="love-letter" class="opacity-0 transition-all duration-1000 transform scale-95 relative z-[60]">
+                    <div
+                        class="bg-gradient-to-br from-pink-50 to-purple-50 rounded-3xl shadow-2xl p-6 md:p-12 border-2 border-pink-200 max-w-2xl mx-auto floral-border romantic-gradient">
+                        <div class="text-right text-purple-600 mb-6 script-font text-lg md:text-xl">December 9th, 2025
+                        </div>
+                        <div id="letter-content"
+                            class="text-left space-y-4 text-gray-800 better-text text-sm md:text-base">
                             <p class="script-font text-xl md:text-2xl text-purple-700 mb-4">Dear Pragati,</p>
-                            <p>If someone told me a year ago that I'd find someone who makes ordinary moments feel extraordinary, I wouldn't have believed them. But here you are, proving me wrong every single day.</p>
-                            <p>You have this incredible way of making everything better—not by trying, but just by being yourself. Your laugh, it all makes my days brighter.</p>
-                            <p>On your special day, I wanted you to know that you've become someone incredibly important to me. More than just someone I walk home with. More than just a friend.(Quite generic i get it but i am working on a beautiful sonnet though)</p>
-                            <p class="font-semibold text-pink-600">You're the person I look forward to seeing most, and I hope this year brings us even closer.</p>
+                            <p>If someone told me a year ago that I'd find someone who makes ordinary moments feel
+                                extraordinary, I wouldn't have believed them. But here you are, proving me wrong every
+                                single day.</p>
+                            <p>You have this incredible way of making everything better—not by trying, but just by being
+                                yourself. Your laugh, it all makes my days brighter.</p>
+                            <p>On your special day, I wanted you to know that you've become someone incredibly important
+                                to me. More than just someone I walk home with. More than just a friend.</p>
+                            <p class="font-semibold text-pink-600">You're the person I look forward to seeing most, and
+                                I hope this year brings us even closer.</p>
                             <p class="script-font text-lg md:text-xl text-purple-700 mt-8">Happy Birthday 💜</p>
-                            <p class="text-right text-purple-600 script-font text-base md:text-lg">— Someone who cares more than you know</p>
+                            <p class="text-right text-purple-600 script-font text-base md:text-lg">— Someone who cares
+                                more than you know</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <!-- Footer -->
         <footer class="py-12 px-4 md:px-6 text-center">
-            <div class="text-4xl mb-4">🎉💜🎈</div>
+            <div class="flex justify-center gap-4 mb-4">
+                <svg class="w-10 h-10" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="footerDaisy" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#c4b5fd" />
+                            <stop offset="100%" stop-color="#8b5cf6" />
+                        </linearGradient>
+                    </defs>
+                    <g transform="translate(50,50)">
+                        <ellipse rx="3" ry="14" fill="url(#footerDaisy)" transform="rotate(0) translate(0,-18)" />
+                        <ellipse rx="3" ry="14" fill="url(#footerDaisy)" transform="rotate(45) translate(0,-18)" />
+                        <ellipse rx="3" ry="14" fill="url(#footerDaisy)" transform="rotate(90) translate(0,-18)" />
+                        <ellipse rx="3" ry="14" fill="url(#footerDaisy)" transform="rotate(135) translate(0,-18)" />
+                        <ellipse rx="3" ry="14" fill="url(#footerDaisy)" transform="rotate(180) translate(0,-18)" />
+                        <ellipse rx="3" ry="14" fill="url(#footerDaisy)" transform="rotate(225) translate(0,-18)" />
+                        <ellipse rx="3" ry="14" fill="url(#footerDaisy)" transform="rotate(270) translate(0,-18)" />
+                        <ellipse rx="3" ry="14" fill="url(#footerDaisy)" transform="rotate(315) translate(0,-18)" />
+                        <circle r="6" fill="#fbbf24" />
+                    </g>
+                </svg>
+                <div class="text-3xl">💜</div>
+                <svg class="w-10 h-10" viewBox="0 0 100 100">
+                    <g transform="translate(50,55)">
+                        <ellipse cx="-10" cy="2" rx="7" ry="14" fill="#fbcfe8" transform="rotate(-20)" opacity="0.85" />
+                        <ellipse cx="10" cy="2" rx="7" ry="14" fill="#fbcfe8" transform="rotate(20)" opacity="0.85" />
+                        <ellipse cx="0" cy="-2" rx="6" ry="12" fill="#f9a8d4" opacity="0.9" />
+                        <circle cx="0" cy="3" r="4" fill="#fcd34d" />
+                    </g>
+                </svg>
+            </div>
             <p class="text-purple-600 mb-2 font-semibold text-sm md:text-base">Made especially for you</p>
             <p class="text-purple-400 text-xs md:text-sm">— by someone who thinks you're extraordinary</p>
         </footer>
-        
+
     </div>
-    
+
     <script>
         // ========== Three.js 3D Particle Background ==========
         const canvas = document.getElementById('particles-canvas');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-        
+
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.position.z = 50;
-        
+
         const particleCount = window.innerWidth < 768 ? 50 : 100;
         const particles = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
         const colors = new Float32Array(particleCount * 3);
         const sizes = new Float32Array(particleCount);
-        
+
         for (let i = 0; i < particleCount; i++) {
             const i3 = i * 3;
             positions[i3] = (Math.random() - 0.5) * 100;
             positions[i3 + 1] = (Math.random() - 0.5) * 100;
             positions[i3 + 2] = (Math.random() - 0.5) * 100;
-            
+
             const colorChoice = Math.random();
             if (colorChoice > 0.5) {
                 colors[i3] = 0.85; colors[i3 + 1] = 0.71; colors[i3 + 2] = 0.99;
             } else {
                 colors[i3] = 0.99; colors[i3 + 1] = 0.67; colors[i3 + 2] = 0.93;
             }
-            
+
             sizes[i] = Math.random() * 3 + 1;
         }
-        
+
         particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
         particles.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-        
+
         const particleMaterial = new THREE.PointsMaterial({
             size: 2,
             vertexColors: true,
@@ -607,15 +1543,15 @@
             opacity: 0.6,
             sizeAttenuation: true
         });
-        
+
         const particleSystem = new THREE.Points(particles, particleMaterial);
         scene.add(particleSystem);
-        
+
         function animateParticles() {
             requestAnimationFrame(animateParticles);
             particleSystem.rotation.y += 0.001;
             particleSystem.rotation.x += 0.0005;
-            
+
             const positions = particleSystem.geometry.attributes.position.array;
             for (let i = 0; i < positions.length; i += 3) {
                 positions[i + 1] += Math.sin(Date.now() * 0.001 + i) * 0.01;
@@ -624,31 +1560,217 @@
             renderer.render(scene, camera);
         }
         animateParticles();
-        
+
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
-        
-        // ========== Rose Petals ==========
-        function createRosePetal() {
+
+        // ========== Beautiful Detailed SVG Flowers ==========
+        // Inspired by purple daisies, lotus, and elegant botanical flowers
+
+        function createDaisy(size, hue) {
+            // Purple/lavender daisy with many thin petals like the reference image
+            const petalCount = 16;
+            let petals = '';
+            for (let i = 0; i < petalCount; i++) {
+                const angle = (360 / petalCount) * i;
+                petals += `<ellipse rx="3" ry="18" fill="url(#daisyGrad)" transform="rotate(${angle}) translate(0,-22)" opacity="${0.85 + Math.random() * 0.15}"/>`;
+            }
+            return `
+                <svg width="${size}" height="${size}" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="daisyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="hsl(${hue}, 70%, 80%)"/>
+                            <stop offset="100%" stop-color="hsl(${hue}, 60%, 60%)"/>
+                        </linearGradient>
+                        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.2"/>
+                        </filter>
+                    </defs>
+                    <g transform="translate(50,50)" filter="url(#softShadow)">
+                        ${petals}
+                        <circle r="8" fill="#fbbf24"/>
+                        <circle r="5" fill="#f59e0b"/>
+                    </g>
+                </svg>
+            `;
+        }
+
+        function createLotus(size) {
+            // Beautiful layered lotus with gradient petals
+            return `
+                <svg width="${size}" height="${size}" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="lotusOuter" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#fce7f3"/>
+                            <stop offset="100%" stop-color="#f9a8d4"/>
+                        </linearGradient>
+                        <linearGradient id="lotusMid" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#fbcfe8"/>
+                            <stop offset="100%" stop-color="#ec4899"/>
+                        </linearGradient>
+                        <linearGradient id="lotusInner" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#fdf2f8"/>
+                            <stop offset="100%" stop-color="#f472b6"/>
+                        </linearGradient>
+                        <filter id="lotusShadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+                        </filter>
+                    </defs>
+                    <g transform="translate(50,55)" filter="url(#lotusShadow)">
+                        <!-- Outer petals -->
+                        <ellipse cx="-22" cy="5" rx="14" ry="25" fill="url(#lotusOuter)" transform="rotate(-30)" opacity="0.8"/>
+                        <ellipse cx="22" cy="5" rx="14" ry="25" fill="url(#lotusOuter)" transform="rotate(30)" opacity="0.8"/>
+                        <ellipse cx="-15" cy="0" rx="12" ry="28" fill="url(#lotusOuter)" transform="rotate(-15)" opacity="0.85"/>
+                        <ellipse cx="15" cy="0" rx="12" ry="28" fill="url(#lotusOuter)" transform="rotate(15)" opacity="0.85"/>
+                        
+                        <!-- Middle petals -->
+                        <ellipse cx="-8" cy="-5" rx="10" ry="24" fill="url(#lotusMid)" transform="rotate(-8)" opacity="0.9"/>
+                        <ellipse cx="8" cy="-5" rx="10" ry="24" fill="url(#lotusMid)" transform="rotate(8)" opacity="0.9"/>
+                        <ellipse cx="0" cy="-8" rx="9" ry="22" fill="url(#lotusMid)" opacity="0.92"/>
+                        
+                        <!-- Inner petals -->
+                        <ellipse cx="-4" cy="-10" rx="7" ry="18" fill="url(#lotusInner)" transform="rotate(-5)" opacity="0.95"/>
+                        <ellipse cx="4" cy="-10" rx="7" ry="18" fill="url(#lotusInner)" transform="rotate(5)" opacity="0.95"/>
+                        <ellipse cx="0" cy="-12" rx="5" ry="15" fill="#fff0f7" opacity="0.9"/>
+                        
+                        <!-- Center -->
+                        <circle cx="0" cy="5" r="6" fill="#fcd34d"/>
+                    </g>
+                </svg>
+            `;
+        }
+
+        function createElegantFlower(size) {
+            // Elegant 6-petal flower with soft gradients
+            return `
+                <svg width="${size}" height="${size}" viewBox="0 0 100 100">
+                    <defs>
+                        <radialGradient id="elegantPetal" cx="30%" cy="30%">
+                            <stop offset="0%" stop-color="#fdf4ff"/>
+                            <stop offset="50%" stop-color="#e9d5ff"/>
+                            <stop offset="100%" stop-color="#c4b5fd"/>
+                        </radialGradient>
+                        <filter id="elegantShadow">
+                            <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.2"/>
+                        </filter>
+                    </defs>
+                    <g transform="translate(50,50)" filter="url(#elegantShadow)">
+                        <ellipse rx="8" ry="28" fill="url(#elegantPetal)" transform="rotate(0) translate(0,-12)"/>
+                        <ellipse rx="8" ry="28" fill="url(#elegantPetal)" transform="rotate(60) translate(0,-12)"/>
+                        <ellipse rx="8" ry="28" fill="url(#elegantPetal)" transform="rotate(120) translate(0,-12)"/>
+                        <ellipse rx="8" ry="28" fill="url(#elegantPetal)" transform="rotate(180) translate(0,-12)"/>
+                        <ellipse rx="8" ry="28" fill="url(#elegantPetal)" transform="rotate(240) translate(0,-12)"/>
+                        <ellipse rx="8" ry="28" fill="url(#elegantPetal)" transform="rotate(300) translate(0,-12)"/>
+                        <circle r="10" fill="#fbbf24"/>
+                        <circle r="6" fill="#f59e0b"/>
+                        <circle r="3" fill="#d97706"/>
+                    </g>
+                </svg>
+            `;
+        }
+
+        function createSVGPetal() {
+            const flowerType = Math.floor(Math.random() * 3);
+            const size = Math.random() * 25 + 40; // 40-65px (larger!)
+            const rotation = Math.random() * 360;
+
             const petal = document.createElement('div');
             petal.className = 'rose-petal';
-            petal.textContent = '🌸';
+            petal.style.transform = `rotate(${rotation}deg)`;
+
+            if (flowerType === 0) {
+                // Purple/lavender daisy
+                const hue = 260 + Math.random() * 40; // 260-300 (purple to pink)
+                petal.innerHTML = createDaisy(size, hue);
+            } else if (flowerType === 1) {
+                // Pink lotus
+                petal.innerHTML = createLotus(size);
+            } else {
+                // Elegant purple flower
+                petal.innerHTML = createElegantFlower(size);
+            }
+
             petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
-            petal.style.animationDelay = Math.random() * 2 + 's';
+            petal.style.animationDuration = (Math.random() * 8 + 10) + 's';
+            petal.style.animationDelay = Math.random() * 4 + 's';
+            petal.style.opacity = (Math.random() * 0.25 + 0.5).toString();
             document.getElementById('petals-container').appendChild(petal);
-            setTimeout(() => petal.remove(), 8000);
+            setTimeout(() => petal.remove(), 20000);
         }
-        
+
         function startRosePetals() {
-            const petalInterval = window.innerWidth < 768 ? 4000 : 3000;
-            setInterval(createRosePetal, petalInterval);
-            for (let i = 0; i < 3; i++) setTimeout(createRosePetal, i * 800);
+            const petalInterval = window.innerWidth < 768 ? 6000 : 4000;
+            setInterval(createSVGPetal, petalInterval);
+            for (let i = 0; i < 5; i++) setTimeout(createSVGPetal, i * 1200);
         }
-        
+
+        // ========== Beautiful SVG Flower Burst Effect ==========
+        function createFlowerBurst(x, y) {
+            const burstCount = window.innerWidth < 768 ? 8 : 14;
+
+            for (let i = 0; i < burstCount; i++) {
+                setTimeout(() => {
+                    const flowerType = Math.floor(Math.random() * 3);
+                    const size = Math.random() * 30 + 35;
+                    const flower = document.createElement('div');
+                    flower.className = 'flower-burst';
+
+                    if (flowerType === 0) {
+                        const hue = 260 + Math.random() * 40;
+                        flower.innerHTML = createDaisy(size, hue);
+                    } else if (flowerType === 1) {
+                        flower.innerHTML = createLotus(size);
+                    } else {
+                        flower.innerHTML = createElegantFlower(size);
+                    }
+
+                    const angle = (Math.random() * 360) * (Math.PI / 180);
+                    const distance = Math.random() * 120 + 50;
+                    const offsetX = Math.cos(angle) * distance;
+                    const offsetY = Math.sin(angle) * distance;
+
+                    flower.style.left = (x + offsetX) + 'px';
+                    flower.style.top = (y + offsetY) + 'px';
+                    flower.style.opacity = '0.9';
+
+                    document.getElementById('flower-burst-container').appendChild(flower);
+                    setTimeout(() => flower.remove(), 3500);
+                }, i * 120);
+            }
+        }
+
+        // ========== Typewriter Effect (returns total duration) ==========
+        function typewriterEffect(element, speed = 30) {
+            const paragraphs = element.querySelectorAll('p');
+            let totalDelay = 0;
+
+            paragraphs.forEach((p, index) => {
+                const text = p.innerHTML;
+                p.innerHTML = '';
+                p.style.opacity = '0';
+
+                setTimeout(() => {
+                    p.style.opacity = '1';
+                    let charIndex = 0;
+                    const typeInterval = setInterval(() => {
+                        if (charIndex < text.length) {
+                            p.innerHTML = text.substring(0, charIndex + 1);
+                            charIndex++;
+                        } else {
+                            clearInterval(typeInterval);
+                        }
+                    }, speed);
+                }, totalDelay);
+
+                totalDelay += text.length * speed + 500;
+            });
+
+            return totalDelay; // Return total typing duration
+        }
+
         // ========== Shooting Stars ==========
         function createShootingStar() {
             const star = document.createElement('div');
@@ -658,11 +1780,11 @@
             document.body.appendChild(star);
             setTimeout(() => star.remove(), 1500);
         }
-        
+
         function startShootingStars() {
             setInterval(createShootingStar, 6000);
         }
-        
+
         // ========== Counter Animation ==========
         function animateCounter(element, target, duration) {
             let current = 0;
@@ -677,7 +1799,7 @@
                 }
             }, 16);
         }
-        
+
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && entry.target.textContent === '0') {
@@ -686,11 +1808,11 @@
                 }
             });
         }, { threshold: 0.5 });
-        
+
         document.querySelectorAll('[data-count]').forEach(counter => {
             counterObserver.observe(counter);
         });
-        
+
         // ========== Random Reason Generator ==========
         const reasons = [
             "Your smile lights up the entire room",
@@ -709,11 +1831,11 @@
             "Your presence makes everything better",
             "You're one of a kind"
         ];
-        
-        document.getElementById('reveal-reason-btn').addEventListener('click', function() {
+
+        document.getElementById('reveal-reason-btn').addEventListener('click', function () {
             const reasonDiv = document.getElementById('random-reason');
             reasonDiv.style.opacity = '0';
-            
+
             setTimeout(() => {
                 const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
                 reasonDiv.textContent = `"${randomReason}"`;
@@ -722,34 +1844,128 @@
                 setTimeout(() => reasonDiv.classList.remove('flip-card'), 600);
             }, 300);
         });
-        
-        // ========== Love Letter ==========
-        document.getElementById('letter-seal').addEventListener('click', function() {
+
+        // ========== Love Letter with Flower Burst & Typewriter ==========
+        let letterOpened = false;
+        let letterFullyRead = false;
+
+        document.getElementById('letter-seal').addEventListener('click', function (e) {
+            if (letterOpened) return;
+            letterOpened = true;
+
+            // Get click position for flower burst
+            const rect = this.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+
+            // Activate spotlight
+            document.getElementById('letter-spotlight').classList.add('active');
+
+            // Stop background music and start Elvis song
+            const bgMusic = document.getElementById('background-music');
+            if (bgMusic) {
+                bgMusic.pause();
+                bgMusic.currentTime = 0;
+            }
+
+            const elvisSong = document.getElementById('elvis-song');
+            elvisSong.volume = 0.45; // 45% volume
+            elvisSong.play().catch(e => console.log('Elvis song blocked:', e));
+
+            // Create flower burst
+            createFlowerBurst(x, y);
+
+            // Break seal animation
             this.classList.add('seal-break');
+
             setTimeout(() => {
                 this.style.display = 'none';
                 const letter = document.getElementById('love-letter');
+                const letterSection = document.getElementById('love-letter-section');
+
+                // Make letter section fullscreen overlay on mobile
+                letterSection.style.position = 'fixed';
+                letterSection.style.inset = '0';
+                letterSection.style.zIndex = '70';
+                letterSection.style.background = 'linear-gradient(135deg, rgba(88, 28, 135, 0.95), rgba(131, 24, 67, 0.95))';
+                letterSection.style.overflowY = 'auto'; // Allow scrolling inside
+                letterSection.style.padding = '20px';
+                letterSection.style.display = 'flex';
+                letterSection.style.alignItems = 'flex-start';
+                letterSection.style.justifyContent = 'center';
+                letterSection.style.paddingTop = '40px';
+
                 letter.style.opacity = '1';
                 letter.style.transform = 'scale(1)';
+
+                // Scroll letter section to top
+                letterSection.scrollTop = 0;
+
+                // Start typewriter effect (faster - 18ms instead of 25ms)
+                const letterContent = document.getElementById('letter-content');
+                const typingDuration = typewriterEffect(letterContent, 18);
+
+                // After typing completes, allow clicking to close
+                setTimeout(() => {
+                    document.getElementById('letter-spotlight').classList.remove('active');
+                    letterFullyRead = true;
+
+                    // Add close hint text
+                    const closeHint = document.createElement('p');
+                    closeHint.className = 'text-center text-purple-300 text-sm mt-6 animate-pulse';
+                    closeHint.textContent = 'Tap anywhere outside the letter to close';
+                    closeHint.id = 'close-hint';
+                    letter.parentElement.appendChild(closeHint);
+
+                    // Click outside letter to close
+                    letterSection.addEventListener('click', function closeHandler(e) {
+                        if (!letter.contains(e.target)) {
+                            // Reset letter section to normal
+                            letterSection.style.position = '';
+                            letterSection.style.inset = '';
+                            letterSection.style.zIndex = '';
+                            letterSection.style.background = '';
+                            letterSection.style.overflowY = '';
+                            letterSection.style.padding = '';
+                            letterSection.style.display = '';
+                            letterSection.style.alignItems = '';
+                            letterSection.style.justifyContent = '';
+                            letterSection.style.paddingTop = '';
+
+                            // Remove close hint
+                            const hint = document.getElementById('close-hint');
+                            if (hint) hint.remove();
+
+                            // Scroll to letter section in page
+                            letterSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                            letterSection.removeEventListener('click', closeHandler);
+                        }
+                    });
+                }, typingDuration + 3000);
             }, 500);
         });
-        
+
         // ========== Original JavaScript ==========
         const UNLOCK_DATE = new Date('2025-12-09T00:01:00');
         const MUSIC_DURATION = 25000;
         const urlParams = new URLSearchParams(window.location.search);
         const isPreview = urlParams.get('preview') === '1';
-        
-        const bgMusic = document.getElementById('bg-music');
-        let musicTimeout;
-        
-        document.getElementById('start-screen').addEventListener('click', function() {
+
+        document.getElementById('start-screen').addEventListener('click', function () {
             this.style.opacity = '0';
             this.style.transition = 'opacity 0.8s ease';
-            
+
+            // Start background music (40% volume, loops)
+            const bgMusic = document.getElementById('background-music');
+            if (bgMusic) {
+                bgMusic.volume = 0.40;
+                bgMusic.play().catch(e => console.log('Background music blocked:', e));
+            }
+
             setTimeout(() => {
                 this.style.display = 'none';
-                
+
                 if (isPreview || new Date() >= UNLOCK_DATE) {
                     unlockContent();
                 } else {
@@ -758,56 +1974,44 @@
                 }
             }, 800);
         });
-        
+
         function updateCountdown() {
             const now = new Date();
             const diff = UNLOCK_DATE - now;
-            
+
             if (diff <= 0) {
                 unlockContent();
                 return;
             }
-            
+
             const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('countdown').textContent = 
+
+            document.getElementById('countdown').textContent =
                 `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         }
-        
+
         function unlockContent() {
             document.getElementById('countdown-screen').style.display = 'none';
             document.getElementById('main-content').classList.remove('locked');
-            
-            playMusic();
+
+            // No music here - Elvis plays when letter is opened
             createConfetti();
             startFloatingElements();
             startRosePetals();
             startShootingStars();
         }
-        
-        function playMusic() {
-            bgMusic.play().catch(e => {
-                console.log('Audio autoplay blocked:', e);
-                setTimeout(() => bgMusic.play().catch(() => {}), 100);
-            });
-            
-            musicTimeout = setTimeout(() => {
-                bgMusic.pause();
-                bgMusic.currentTime = 0;
-            }, MUSIC_DURATION);
-        }
-        
+
         function createConfetti() {
             const colors = ['#d8b4fe', '#f0abfc', '#c084fc', '#fbbf24', '#fb923c', '#ec4899'];
             const shapes = ['🎉', '🎊', '✨', '⭐', '💜', '🎈'];
             const confettiCount = window.innerWidth < 768 ? 50 : 80;
-            
+
             for (let i = 0; i < confettiCount; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
-                    
+
                     if (Math.random() > 0.4) {
                         confetti.className = 'confetti';
                         confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
@@ -821,18 +2025,18 @@
                         confetti.style.zIndex = '100';
                         confetti.style.pointerEvents = 'none';
                     }
-                    
+
                     confetti.style.left = Math.random() * 100 + 'vw';
                     confetti.style.top = '-20px';
                     confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
                     confetti.style.animationDelay = Math.random() * 0.3 + 's';
-                    
+
                     document.body.appendChild(confetti);
                     setTimeout(() => confetti.remove(), 5000);
                 }, i * 30);
             }
         }
-        
+
         function createFloatingElement() {
             const elements = ['💜', '💖', '🎈', '🎂', '🎁', '✨', '💝', '🎉', '🌟'];
             const element = document.createElement('div');
@@ -842,11 +2046,11 @@
             element.style.fontSize = window.innerWidth < 768 ? '2rem' : (Math.random() * 1.5 + 2) + 'rem';
             element.style.animationDuration = (Math.random() * 6 + 10) + 's';
             element.style.animationDelay = Math.random() * 3 + 's';
-            
+
             document.getElementById('floating-container').appendChild(element);
             setTimeout(() => element.remove(), 20000);
         }
-        
+
         function startFloatingElements() {
             const elemCount = window.innerWidth < 768 ? 3 : 5;
             for (let i = 0; i < elemCount; i++) {
@@ -854,35 +2058,35 @@
             }
             setInterval(createFloatingElement, 2500);
         }
-        
+
         let ticking = false;
         function updateParallax() {
             if (window.innerWidth < 768) return;
-            
+
             const scrolled = window.pageYOffset;
             const parallaxElements = document.querySelectorAll('.parallax-layer');
-            
+
             parallaxElements.forEach(el => {
                 const speed = el.dataset.speed || 0.5;
                 const yPos = -(scrolled * speed);
                 el.style.transform = `translateY(${yPos}px)`;
             });
-            
+
             ticking = false;
         }
-        
-        window.addEventListener('scroll', function() {
+
+        window.addEventListener('scroll', function () {
             if (!ticking) {
                 window.requestAnimationFrame(updateParallax);
                 ticking = true;
             }
         });
-        
+
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
-        
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -891,14 +2095,14 @@
                 }
             });
         }, observerOptions);
-        
+
         document.querySelectorAll('section').forEach(section => {
             section.style.opacity = '0';
             section.style.transform = 'translateY(30px)';
             section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
             observer.observe(section);
         });
-        
+
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             document.querySelectorAll('.floating-element, .confetti, .parallax-layer, .rose-petal').forEach(el => {
                 el.style.animation = 'none';
@@ -906,8 +2110,7 @@
             });
         }
     </script>
-    
+
 </body>
+
 </html>
-
-
